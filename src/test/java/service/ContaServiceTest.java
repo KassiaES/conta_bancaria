@@ -3,7 +3,6 @@ package service;
 import model.Conta;
 import org.junit.*;
 
-import java.util.Scanner;
 
 public class ContaServiceTest {
 
