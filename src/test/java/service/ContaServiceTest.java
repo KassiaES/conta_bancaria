@@ -148,10 +148,6 @@ public class ContaServiceTest {
 
 
 
-    // assunto: Atividade aula 01/02/2023
-    // igormascarenhas.professor@gmail.com
-
-
 
 
 
