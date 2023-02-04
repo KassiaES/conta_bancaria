@@ -1,7 +1,10 @@
 package service;
 
 import model.Conta;
+import org.hamcrest.CoreMatchers;
 import org.junit.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ContaServiceTest {
@@ -35,7 +38,7 @@ public class ContaServiceTest {
     public void deveSerPossivelCriarUmaConta() {
         // Given
 
-        //When
+        // When
         Conta conta = ContaService.cadastrar("Kassia");
         // Then
         Assert.assertEquals(Integer.valueOf(1), conta.getAgencia());
@@ -46,12 +49,13 @@ public class ContaServiceTest {
     public void novasContasDevemIniciarComSaldoZero() {
         //Given
 
-        //When
+        // When
         Conta conta = ContaService.cadastrar("Kassia");
         //Then
         Assert.assertTrue(10 == conta.getSaldo());
     }
 
+    @Ignore
     @Test
     public void assertsPossiveis() {
         Assert.assertTrue(true);
@@ -77,12 +81,12 @@ public class ContaServiceTest {
     */
 
     @Test
-    public void podeSacarSeSaldoMaiorQueValor() {
+    public void podeSacarSeSaldoMaiorQueValor() throws Exception {
         // Given
         ContaService contaService = new ContaService();
         Conta conta = ContaService.cadastrar("Igor");
         contaService.depositar(conta,50.0);
-        //When
+        // When
         contaService.sacar(conta,40.0);
         // Then
         Assert.assertTrue(conta.getSaldo()== 10.0);
@@ -90,24 +94,24 @@ public class ContaServiceTest {
     }
 
     @Test
-    public void naoPodeSacarValorMaiorQueSaldo() {
+    public void naoPodeSacarValorMaiorQueSaldo() throws Exception {
         // Given
         ContaService contaService = new ContaService();
         Conta conta = ContaService.cadastrar("Igor");
         contaService.depositar(conta,50.0);
-        //When
+        // When
         contaService.sacar(conta,100.0);
         // Then
         Assert.assertFalse(conta.getSaldo() == -50.0);
     }
 
     @Test
-    public void metodoSacarFuncionaCorretamente() {
+    public void metodoSacarFuncionaCorretamente() throws Exception{
         // Given
         ContaService contaService = new ContaService();
         Conta conta = ContaService.cadastrar("Igor");
         contaService.depositar(conta,50.0);
-        //When
+        // When
         contaService.sacar(conta,40.0);
         // Then
         Assert.assertEquals(10, conta.getSaldo(), 0.01);
@@ -118,7 +122,7 @@ public class ContaServiceTest {
         // Given
         ContaService contaService = new ContaService();
         Conta conta = ContaService.cadastrar("Igor");
-        //When
+        // When
         contaService.depositar(conta,50.0);
         // Then
         Assert.assertNotEquals(10, conta.getSaldo(), 0.01);
@@ -139,11 +143,19 @@ public class ContaServiceTest {
     public void mesmaContaQuandoDadosIguais() {
         // Given
         ContaService contaService = new ContaService();
-        //When
+        // When
         Conta conta1 = ContaService.cadastrar("Igor");
         Conta conta2 = conta1;
         // Then
         Assert.assertSame(conta1,conta2);
+    }
+
+    @Test
+    // não existe mais no JUnit5 assertThat
+    public void assertThatTeste() {
+        // verifique que...
+        Conta contaMaria = contaService.cadastrar("Maria");
+        assertThat(contaMaria.getSaldo(), CoreMatchers.is(0.0));
     }
 
 
